@@ -12,6 +12,9 @@ const ps = new Shell({
     noProfile: true
 });
 
+app.get('/', (req, res) => {
+    res.send("<h1>Please read comments for routing</h1>");
+});
 
 // get list of softwares. 
 // It will take few minutes to get response
@@ -42,11 +45,11 @@ app.get('/active', (req, res) => {
 
 // get inactive devices
 app.get('/inactive', (req, res) => {
-    let active = [];
+    let inactive = [];
 
     netList.scan({}, (err, arr) => {
-        active = arr.filter(arr => !(arr.alive))
-        res.send(active); // array with all inactive devices
+        inactive = arr.filter(arr => !(arr.alive))
+        res.send(inactive); // array with all inactive devices
     });
 });
 
@@ -66,10 +69,6 @@ app.get('/cidr', (req, res) => {
     res.send(ips);
 });
 
-app.get('/', (req, res) => {
-   
-});
- 
 
 var server = app.listen(port,() => console.log(`Server listening on port ${port}!`));
 server.timeout = 1000 * 60 * 10;
